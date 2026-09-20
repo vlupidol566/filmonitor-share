@@ -10,9 +10,9 @@
   <meta property="og:locale" content="ru_RU">
   <meta property="og:title" content="ФилМонитор — публичная статистика">
   <meta property="og:description" content="Публичная статистика торговых счетов в ФилМонитор.">
-  <meta property="og:url" content="https://vlupidol566.github.io/filmonitor-share/">
-  <meta property="og:image" content="https://vlupidol566.github.io/filmonitor-share/og-image.jpg">
-  <meta property="og:image:secure_url" content="https://vlupidol566.github.io/filmonitor-share/og-image.jpg">
+  <meta property="og:url" content="https://share.filmonitor.ru/">
+  <meta property="og:image" content="https://share.filmonitor.ru/og-image.jpg">
+  <meta property="og:image:secure_url" content="https://share.filmonitor.ru/og-image.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="510">
   <meta property="og:image:height" content="350">
@@ -20,7 +20,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ФилМонитор — публичная статистика">
   <meta name="twitter:description" content="Публичная статистика торговых счетов в ФилМонитор.">
-  <meta name="twitter:image" content="https://vlupidol566.github.io/filmonitor-share/og-image.jpg">
+  <meta name="twitter:image" content="https://share.filmonitor.ru/og-image.jpg">
   <meta http-equiv="refresh" content="5;url=https://filmonitor.ru/">
   <style>
     :root { color-scheme: dark; font-family: system-ui, sans-serif; }
@@ -37,7 +37,8 @@
   </main>
   <script>
     (() => {
-      const rawPath = window.location.hash.replace(/^#/, '');
+      const rawPath = new URLSearchParams(window.location.search).get('path')
+        || window.location.hash.replace(/^#/, '');
       const path = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
       const allowed = /^\/(?:p|s|a|share)(?:\/|$)/.test(path);
       const target = allowed ? `https://filmonitor.ru${path}` : 'https://filmonitor.ru/';

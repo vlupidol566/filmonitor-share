@@ -37,10 +37,13 @@
   </main>
   <script>
     (() => {
-      const rawPath = new URLSearchParams(window.location.search).get('path')
-        || window.location.hash.replace(/^#/, '');
+      const shortMatch = window.location.search.match(/^\?([A-Za-z0-9]{6})$/);
+      const shortCode = shortMatch ? shortMatch[1].toUpperCase() : '';
+      const rawPath = shortCode ? `/i/${shortCode}`
+        : (new URLSearchParams(window.location.search).get('path')
+          || window.location.hash.replace(/^#/, ''));
       const path = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
-      const allowed = /^\/(?:p|s|a|share)(?:\/|$)/.test(path);
+      const allowed = /^\/(?:i|p|s|a|share)(?:\/|$)/.test(path);
       const target = allowed ? `https://filmonitor.ru${path}` : 'https://filmonitor.ru/';
       document.getElementById('fallback').href = target;
       window.location.replace(target);

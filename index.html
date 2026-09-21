@@ -37,11 +37,15 @@
   </main>
   <script>
     (() => {
-      const shortMatch = window.location.search.match(/^\?([A-Za-z0-9]{6})$/);
-      const shortCode = shortMatch ? shortMatch[1].toUpperCase() : '';
-      const rawPath = shortCode ? `/i/${shortCode}`
-        : (new URLSearchParams(window.location.search).get('path')
-          || window.location.hash.replace(/^#/, ''));
+      const query = window.location.search;
+      const portfolioMatch = query.match(/^\?([A-Za-z0-9]{6})$/);
+      const accountMatch = query.match(/^\?a([A-Za-z0-9]{6})$/i);
+      const portfolioCode = portfolioMatch ? portfolioMatch[1].toUpperCase() : '';
+      const accountCode = accountMatch ? accountMatch[1].toUpperCase() : '';
+      const rawPath = portfolioCode ? `/i/${portfolioCode}`
+        : (accountCode ? `/i/a${accountCode}`
+          : (new URLSearchParams(query).get('path')
+            || window.location.hash.replace(/^#/, '')));
       const path = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
       const allowed = /^\/(?:i|p|s|a|share)(?:\/|$)/.test(path);
       const target = allowed ? `https://filmonitor.ru${path}` : 'https://filmonitor.ru/';

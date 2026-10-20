@@ -40,14 +40,17 @@
       const query = window.location.search;
       const portfolioMatch = query.match(/^\?([A-Za-z0-9]{6})$/);
       const accountMatch = query.match(/^\?a([A-Za-z0-9]{6})$/i);
+      const monitoringMatch = query.match(/^\?m([A-Za-z0-9]{6})$/i);
       const portfolioCode = portfolioMatch ? portfolioMatch[1].toUpperCase() : '';
       const accountCode = accountMatch ? accountMatch[1].toUpperCase() : '';
-      const rawPath = portfolioCode ? `/i/${portfolioCode}`
+      const monitoringCode = monitoringMatch ? monitoringMatch[1].toUpperCase() : '';
+      const rawPath = monitoringCode ? `/m/i/${monitoringCode}`
+        : portfolioCode ? `/i/${portfolioCode}`
         : (accountCode ? `/i/a${accountCode}`
           : (new URLSearchParams(query).get('path')
             || window.location.hash.replace(/^#/, '')));
       const path = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
-      const allowed = /^\/(?:i|p|s|a|share)(?:\/|$)/.test(path);
+      const allowed = /^\/(?:i|m|p|s|a|share)(?:\/|$)/.test(path);
       const target = allowed ? `https://filmonitor.ru${path}` : 'https://filmonitor.ru/';
       document.getElementById('fallback').href = target;
       window.location.replace(target);

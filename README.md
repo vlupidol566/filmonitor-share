@@ -9,3 +9,5 @@ Portfolio links use a six-character query, for example
 supported.
 
 Monitoring links use `?mA1B2C3` and open `/m/i/A1B2C3` on the main site.
+Legacy statistics links are supported through an encoded `path` query,
+including the original share token and archive filters.

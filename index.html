@@ -50,7 +50,8 @@
           : (new URLSearchParams(query).get('path')
             || window.location.hash.replace(/^#/, '')));
       const path = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
-      const allowed = /^\/(?:i|m|p|s|a|share)(?:\/|$)/.test(path);
+      const allowed = /^\/(?:i|m|p|s|a|share)(?:\/|$)/.test(path)
+        || /^\/stats\/[^/?#]+(?:[?#]|$)/.test(path);
       const target = allowed ? `https://filmonitor.ru${path}` : 'https://filmonitor.ru/';
       document.getElementById('fallback').href = target;
       window.location.replace(target);
